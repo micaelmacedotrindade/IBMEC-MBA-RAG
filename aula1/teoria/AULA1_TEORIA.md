@@ -73,6 +73,12 @@ O modelo **Bag-of-Words (BoW)** representa um documento como um vetor de contage
 
 ---
 
+> ### 🛠️ ATIVIDADE PRÁTICA
+> Para uma demonstração interativa de como esses mecanismos funcionam na prática com a língua portuguesa, acesse o notebook:
+> [tokenizacao_stemming_ptbr.ipynb](../scripts/tokenizacao_stemming_ptbr.ipynb)
+
+---
+
 ### 2.2 Perguntas para Reflexão
 
 **Pergunta 1:** Por que a tokenização por subpalavra (usada em modelos modernos como BERT e GPT) é superior à tokenização por palavra inteira para termos jurídicos incomuns?
