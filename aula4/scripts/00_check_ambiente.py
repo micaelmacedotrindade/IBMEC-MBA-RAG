@@ -57,9 +57,6 @@ def checar_bibliotecas():
             falha(f"{lib} -> {e}")
     # checa as classes especificas usadas
     try:
-        from haystack_integrations.components.retrievers.opensearch import (  # noqa: F401
-            OpenSearchBM25Retriever, OpenSearchEmbeddingRetriever, OpenSearchHybridRetriever,
-        )
         ok("retrievers BM25 / Embedding / Hybrid")
     except Exception as e:
         falha(f"retrievers OpenSearch -> {e}")
