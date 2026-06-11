@@ -101,7 +101,7 @@ def config_opensearch():
 def config_groq():
     return (os.getenv("GROQ_API_KEY", ""),
             os.getenv("GROQ_LLM_MODEL", "llama-3.1-8b-instant"),
-            "https://api.groq.com/openai/v1")
+            os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1"))
 
 
 DIMENSAO_EMBEDDING = {"nomic-embed-text": 768, "mxbai-embed-large": 1024, "bge-m3": 1024}

@@ -21,6 +21,10 @@ import sys
 
 import _comum
 
+import os
+os.environ["CURL_CA_BUNDLE"] = ""
+os.environ["REQUESTS_CA_BUNDLE"] = ""
+
 
 def ok(m): print(f"  [ OK ]   {m}")
 def falha(m): print(f"  [FALHA]  {m}")

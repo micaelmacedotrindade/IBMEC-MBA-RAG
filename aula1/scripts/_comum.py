@@ -76,7 +76,7 @@ def config_groq():
     """
     api_key = os.getenv("GROQ_API_KEY", "")
     modelo = os.getenv("GROQ_LLM_MODEL", "llama-3.1-8b-instant")
-    base_url = "https://api.groq.com/openai/v1"
+    base_url = os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1")
     return api_key, modelo, base_url
 
 

@@ -17,9 +17,14 @@ Uso:
 """
 
 import argparse
+import os
 import sys
 
 import _comum
+
+# Desabilita verificacao SSL se LANGFUSE_VERIFY_SSL=false (ou REQUESTS_CA_BUNDLE="")
+os.environ.setdefault("CURL_CA_BUNDLE", "")
+os.environ.setdefault("REQUESTS_CA_BUNDLE", "")
 
 
 def ok(m): print(f"  [ OK ]   {m}")
@@ -60,8 +65,6 @@ def checar_env():
         falha("Nenhum .env encontrado")
         return
     ok(f".env carregado de: {caminho}")
-    import os
-
     for chave in ["GROQ_API_KEY", "OLLAMA_BASE_URL", "OPENSEARCH_HOST"]:
         (ok if os.getenv(chave) else aviso)(
             f"variavel {chave} {'definida' if os.getenv(chave) else 'ausente (usarei padrao)'}")
@@ -130,18 +133,17 @@ def checar_groq(testar):
 
 def checar_langfuse():
     print("8) LangFuse (Scores API)")
-    import os
-
     if not _comum.langfuse_configurado():
         aviso("chaves do LangFuse ausentes - o 04 (envio de scores) precisara delas")
         aviso("veja GUIA_LANGFUSE_WINDOWS.md da Aula 3")
         return
     host = os.getenv("LANGFUSE_HOST", "http://localhost:3000")
     ok(f"chaves presentes | host: {host}")
+    verify_ssl = os.getenv("LANGFUSE_VERIFY_SSL", "true").lower() != "false"
     try:
         import requests
 
-        r = requests.get(f"{host}/api/public/health", timeout=5)
+        r = requests.get(f"{host}/api/public/health", timeout=5, verify=verify_ssl)
         (ok if r.status_code == 200 else aviso)(f"servidor LangFuse respondeu ({r.status_code})")
     except Exception as e:
         aviso(f"servidor LangFuse nao respondeu em {host} -> {e}")
